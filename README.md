@@ -15,7 +15,10 @@ Website đánh giá và giới thiệu sách - Sản phẩm của môn nghiên c
 #### a) Back-end
 * Chạy project bằng IDE hoặc sử dụng lệnh:
     - `mvn spring-boot:run`
-
+* Sau khi chạy ứng dụng có thể xem API documentation tại đây: 
+    - Swagger UI: http://localhost:8080/swagger-ui-custom.html
+    - JSON: http://localhost:8080/api-docs
+    - YAML: http://localhost:8080/api-docs.yaml
 #### b) Front-end
 * Tạo một storage project trên [Firebase](https://console.firebase.google.com/) và tích hợp vào project bằng cách dán 
 nội dung file config từ mục ***Project Settings*** vào file [firebase.js](./biblia-frontend/src/firebase.js)
