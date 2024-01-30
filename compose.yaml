@@ -1,0 +1,46 @@
+version: '3'
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    networks:
+      - biblia
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: biblia
+
+  biblia-backend:
+    container_name: biblia-backend
+    build:
+      context: biblia-backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - biblia
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/biblia
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 123456
+  
+  biblia-frontend:
+    container_name: biblia-frontend
+    build:
+      context: biblia-frontend
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - "3000:3000"
+    networks:
+      - biblia
+    depends_on:
+      - biblia-backend
+
+networks:
+  biblia:
+    driver: bridge
