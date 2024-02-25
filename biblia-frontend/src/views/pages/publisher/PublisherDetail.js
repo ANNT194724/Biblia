@@ -60,8 +60,8 @@ const PublisherDetail = () => {
 
   const getBooks = () => {
     const size = DEFAULT_PAGE_SIZE;
-    const sort_by = SORT_BY.RATING;
-    const sort_direction = SORT_DIRECTION.DESC;
+    const sort_by = SORT_BY.TITLE;
+    const sort_direction = SORT_DIRECTION.ASC;
     const params = {
       page,
       size,

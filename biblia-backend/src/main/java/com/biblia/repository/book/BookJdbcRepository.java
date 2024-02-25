@@ -102,17 +102,18 @@ public class BookJdbcRepository {
         if (request.getIssuingHouseId() != null) {
             sql.append(("issuing_house_id = :issuingHouseId AND "));
         }
-        sql.append("status = :status AND b.delete_flag = :deleteFlag ORDER BY b.created_time DESC ");
+        sql.append("status = :status AND b.delete_flag = :deleteFlag ");
          if (!count) {
-            switch (sortBy) {
-                case Constants.SORT_BY.RATING -> sql.append(", rating ");
-                case Constants.SORT_BY.TITLE -> sql.append(", title ");
-            }
-            switch (sortDirection) {
-                case Constants.SORT_DIRECTION.ASC -> sql.append("ASC ");
-                case Constants.SORT_DIRECTION.DESC -> sql.append("DESC ");
-            }
-            sql.append("LIMIT :limit OFFSET :offset");
+             sql.append("ORDER BY ");
+             switch (sortBy) {
+                case Constants.SORT_BY.RATING -> sql.append("rating ");
+                case Constants.SORT_BY.TITLE -> sql.append("title ");
+             }
+             switch (sortDirection) {
+                case Constants.SORT_DIRECTION.ASC -> sql.append("ASC, ");
+                case Constants.SORT_DIRECTION.DESC -> sql.append("DESC, ");
+             }
+            sql.append("b.created_time DESC LIMIT :limit OFFSET :offset");
         }
         return sql.toString();
     }
