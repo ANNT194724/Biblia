@@ -13,6 +13,7 @@ import BookList from 'src/components/book/BookList';
 import AuthorImg from 'src/assets/images/author.png';
 import { useSelector } from 'react-redux';
 import UpdateAuthorModal from 'src/components/modal/UpdateAuthorModal';
+import Description from 'src/components/Description';
 const {
   CPagination,
   CPaginationItem,
@@ -144,7 +145,7 @@ const AuthorDetail = () => {
                     </CRow>
                   )}
                 </CCardText>
-                <CCardText dangerouslySetInnerHTML={{ __html: author.description }}></CCardText>
+                <Description description={author.description} />
               </CCardBody>
             </CCard>
           </CCol>

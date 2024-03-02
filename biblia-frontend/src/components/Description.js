@@ -32,6 +32,6 @@ const Description = ({ description }) => {
   );
 };
 
-const MAX_DESCRIPTION_LENGTH = 600; // Maximum characters to display initially
+const MAX_DESCRIPTION_LENGTH = 500; // Maximum characters to display initially
 
 export default Description;
