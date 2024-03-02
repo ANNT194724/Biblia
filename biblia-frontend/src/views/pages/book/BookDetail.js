@@ -39,6 +39,7 @@ import Select from 'react-select';
 import ErrorModal from 'src/components/modal/ErrorModal';
 import Review from 'src/components/review/Review';
 import ReviewList from 'src/components/review/ReviewList';
+import Description from 'src/components/Description';
 
 const BookDetail = () => {
   const [book, setBook] = useState('');
@@ -264,7 +265,8 @@ const BookDetail = () => {
                     </CRow>
                   )}
                 </CCardText>
-                <CCardText dangerouslySetInnerHTML={{ __html: book.description }}></CCardText>
+                {/* <CCardText dangerouslySetInnerHTML={{ __html: book.description }}></CCardText> */}
+                {book.description && <Description description={book.description} />}
                 <CCardText>Thể loại: {printGenres()}</CCardText>
                 {token && !userReview && (
                   <CForm>
