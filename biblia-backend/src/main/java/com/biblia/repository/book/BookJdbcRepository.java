@@ -63,6 +63,9 @@ public class BookJdbcRepository {
         if (request.getIssuingHouseId() != null) {
             params.addValue("issuingHouseId", request.getIssuingHouseId());
         }
+        if (request.getSeriesId() != null) {
+            params.addValue("seriesId", request.getSeriesId());
+        }
         params.addValue("status", request.getStatus());
         params.addValue("deleteFlag", Constants.DELETE_FLAG.NOT_DELETED);
         params.addValue("limit", request.getSize());
@@ -100,20 +103,26 @@ public class BookJdbcRepository {
             sql.append("publisher_id = :publisherId AND ");
         }
         if (request.getIssuingHouseId() != null) {
-            sql.append(("issuing_house_id = :issuingHouseId AND "));
+            sql.append("issuing_house_id = :issuingHouseId AND ");
+        }
+        if (request.getSeriesId() != null) {
+            sql.append("series_id = :seriesId AND ");
         }
         sql.append("status = :status AND b.delete_flag = :deleteFlag ");
          if (!count) {
              sql.append("ORDER BY ");
              switch (sortBy) {
                 case Constants.SORT_BY.RATING -> sql.append("rating ");
-                case Constants.SORT_BY.TITLE -> sql.append("title ");
+                case Constants.SORT_BY.TITLE -> sql.append("LENGTH(title), title ");
              }
              switch (sortDirection) {
-                case Constants.SORT_DIRECTION.ASC -> sql.append("ASC, ");
-                case Constants.SORT_DIRECTION.DESC -> sql.append("DESC, ");
+                case Constants.SORT_DIRECTION.ASC -> sql.append("ASC ");
+                case Constants.SORT_DIRECTION.DESC -> sql.append("DESC ");
              }
-            sql.append("b.created_time DESC LIMIT :limit OFFSET :offset");
+             if (!StringUtils.isBlank(request.getKeyword()) && StringUtils.containsWhitespace(request.getKeyword())) {
+                 sql.append(", b.created_time DESC ");
+             }
+            sql.append("LIMIT :limit OFFSET :offset");
         }
         return sql.toString();
     }

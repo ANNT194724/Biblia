@@ -22,3 +22,8 @@ export const USER_ROLE = {
   MODERATOR: 'MODERATOR',
   USER: 'USER',
 };
+export const SERIES_STATUS = {
+  ONGOING: 0,
+  COMPLETE: 1,
+  ON_HOLD: 2,
+};

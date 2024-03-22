@@ -244,17 +244,15 @@ const BookDetail = () => {
                   <CRow className="mb-3">
                     <CCol>
                       Nhà phát hành:{' '}
-                      <CCardLink href={`${HOME_URL}/issuing-house/${book.issuing_house_id}`}>
+                      <Link to={`/issuing-house/${book.issuing_house_id}`}>
                         {book.issuing_house}
-                      </CCardLink>
+                      </Link>
                     </CCol>
                   </CRow>
                   <CRow className="mb-3">
                     <CCol>
                       Nhà xuất bản:&nbsp;
-                      <CCardLink href={`${HOME_URL}/publisher/${book.publisher_id}`}>
-                        {book.publisher}
-                      </CCardLink>
+                      <Link to={`/publisher/${book.publisher_id}`}>{book.publisher}</Link>
                     </CCol>
                   </CRow>
                   {userData && roles.includes(userData.role_code) && (

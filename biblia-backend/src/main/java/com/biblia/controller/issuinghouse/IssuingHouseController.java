@@ -60,7 +60,7 @@ public class IssuingHouseController {
                                          @RequestBody PublisherCreateRequest request) {
         log.info("update issuing house with request: " + request.toString());
         long start = System.currentTimeMillis();
-        ResponseModel model = issuingHouseService.updatePublisher(currentUser, issuingHouseId, request);
+        ResponseModel model = issuingHouseService.updateIssuingHouse(currentUser, issuingHouseId, request);
         long end = System.currentTimeMillis();
         long diff = end - start;
         log.info("Code = " + model.getResponseStatus() + ", " + model.getDescription() + ", time = " + diff);

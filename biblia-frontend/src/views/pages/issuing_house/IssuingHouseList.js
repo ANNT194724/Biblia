@@ -7,6 +7,7 @@ import { BASE_URL, DEFAULT_PAGE } from 'src/Constants';
 import HouseImg from 'src/assets/images/house.jpg';
 import { useNavigate } from 'react-router-dom';
 import CreateIssuingHouseModal from 'src/components/modal/CreateIssuingHouseModal';
+import ResponsivePagination from 'react-responsive-pagination';
 const {
   CRow,
   CForm,
@@ -16,8 +17,6 @@ const {
   CCard,
   CCardTitle,
   CCardBody,
-  CPagination,
-  CPaginationItem,
   CContainer,
   CAvatar,
 } = require('@coreui/react');
@@ -119,33 +118,11 @@ const IssuingHouseList = () => {
           })}
         </CRow>
       </CContainer>
-      <div className="d-flex justify-content-center">
-        <CPagination>
-          <CPaginationItem
-            aria-label="Previous"
-            onClick={() => setPage(page - 1)}
-            disabled={page === DEFAULT_PAGE}
-          >
-            <span aria-hidden="true">&laquo;</span>
-          </CPaginationItem>
-          {pageNumbers.map((pageNumber) => (
-            <CPaginationItem
-              key={pageNumber}
-              active={pageNumber === page}
-              onClick={() => setPage(pageNumber)}
-            >
-              {pageNumber}
-            </CPaginationItem>
-          ))}
-          <CPaginationItem
-            aria-label="Next"
-            onClick={() => setPage(page + 1)}
-            disabled={page === totalPages}
-          >
-            <span aria-hidden="true">&raquo;</span>
-          </CPaginationItem>
-        </CPagination>
-      </div>
+      <ResponsivePagination
+        total={totalPages}
+        current={page}
+        onPageChange={(page) => setPage(page)}
+      />
     </>
   );
 };

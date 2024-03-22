@@ -10,15 +10,18 @@ const Description = ({ description }) => {
     setExpanded(true);
   };
 
+  let substring = description.substring(0, MAX_DESCRIPTION_LENGTH);
+  if (showSeeMore) substring += '...';
+
   return (
     <div>
-      <CCardText>
+      <CCardText className="mb-3">
         {expanded ? (
           <div dangerouslySetInnerHTML={{ __html: description }} />
         ) : (
           <div
             dangerouslySetInnerHTML={{
-              __html: `${description.substring(0, MAX_DESCRIPTION_LENGTH)}...`,
+              __html: substring,
             }}
           />
         )}
@@ -32,6 +35,6 @@ const Description = ({ description }) => {
   );
 };
 
-const MAX_DESCRIPTION_LENGTH = 500; // Maximum characters to display initially
+const MAX_DESCRIPTION_LENGTH = 512;
 
 export default Description;

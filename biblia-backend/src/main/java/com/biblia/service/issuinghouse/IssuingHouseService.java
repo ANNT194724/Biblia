@@ -119,7 +119,7 @@ public class IssuingHouseService {
         }
     }
 
-    public ResponseModel updatePublisher(UserPrincipal currentUser, Integer issuingHouseId, PublisherCreateRequest request) {
+    public ResponseModel updateIssuingHouse(UserPrincipal currentUser, Integer issuingHouseId, PublisherCreateRequest request) {
         ResponseModel model = new ResponseModel();
         String message;
         try {

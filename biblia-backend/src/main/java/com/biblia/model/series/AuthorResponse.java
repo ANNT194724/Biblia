@@ -1,14 +1,14 @@
-package com.biblia.model.book;
+package com.biblia.model.series;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class BookAuthorRequest {
+public class AuthorResponse {
+    private Integer seriesId;
     private Integer authorId;
+    private String name;
     private String role;
 }

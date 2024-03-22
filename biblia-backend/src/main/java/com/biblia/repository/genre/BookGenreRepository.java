@@ -1,10 +1,10 @@
-package com.biblia.service.book;
+package com.biblia.repository.genre;
 
-import com.biblia.entity.BookAuthor;
+import com.biblia.entity.BookGenre;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BookAuthorRepository extends JpaRepository<BookAuthor, Long> {
+public interface BookGenreRepository extends JpaRepository<BookGenre, Long> {
     void deleteAllByBookId(Long bookId);
 }

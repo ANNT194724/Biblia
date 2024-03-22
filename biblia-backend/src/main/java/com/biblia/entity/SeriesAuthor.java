@@ -14,28 +14,22 @@ import java.sql.Timestamp;
 @Entity
 @ToString
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-@Table(name = "series_genre", schema = "biblia")
-public class SeriesGenre {
+@Table(name = "series_author", schema = "biblia")
+public class SeriesAuthor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "series_genre_id")
-    private String seriesGenreId;
+    @Column(name = "series_author_id")
+    private long seriesAuthorId;
     @Basic
     @Column(name = "series_id", nullable = false)
-    private Long seriesId;
+    private Integer seriesId;
     @Basic
-    @Column(name = "genre_id", nullable = false)
-    private Integer genreId;
+    @Column(name = "author_id", nullable = false)
+    private Integer authorId;
+    @Basic
+    @Column(name = "role")
+    private String role;
     @Basic
     @Column(name = "created_time")
     private Timestamp createdTime;
-    @Basic
-    @Column(name = "updated_time")
-    private Timestamp updatedTime;
-    @Basic
-    @Column(name = "updated_user")
-    private Integer updatedUser;
-    @Basic
-    @Column(name = "delete_flag", nullable = false)
-    private Integer deleteFlag;
 }

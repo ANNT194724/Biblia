@@ -15,9 +15,8 @@ import IssuingHouseImg from 'src/assets/images/house.jpg';
 import CIcon from '@coreui/icons-react';
 import { cibFacebook } from '@coreui/icons';
 import UpdateIssuingHouseModal from 'src/components/modal/UpdateIssuingHouseModal';
+import ResponsivePagination from 'react-responsive-pagination';
 const {
-  CPagination,
-  CPaginationItem,
   CCard,
   CContainer,
   CRow,
@@ -189,33 +188,11 @@ const IssuingHouseDetail = () => {
           <strong>{`${totalElements} đầu sách:`}</strong>
         </span>
         <BookList books={books}></BookList>
-        <div className="d-flex justify-content-center">
-          <CPagination>
-            <CPaginationItem
-              aria-label="Previous"
-              onClick={() => setPage(page - 1)}
-              disabled={page === DEFAULT_PAGE}
-            >
-              <span aria-hidden="true">&laquo;</span>
-            </CPaginationItem>
-            {pageNumbers.map((pageNumber) => (
-              <CPaginationItem
-                key={pageNumber}
-                active={pageNumber === page}
-                onClick={() => setPage(pageNumber)}
-              >
-                {pageNumber}
-              </CPaginationItem>
-            ))}
-            <CPaginationItem
-              aria-label="Next"
-              onClick={() => setPage(page + 1)}
-              disabled={page === totalPages}
-            >
-              <span aria-hidden="true">&raquo;</span>
-            </CPaginationItem>
-          </CPagination>
-        </div>
+        <ResponsivePagination
+          total={totalPages}
+          current={page}
+          onPageChange={(page) => setPage(page)}
+        />
       </CContainer>
     </>
   );

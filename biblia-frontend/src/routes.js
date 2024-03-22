@@ -12,6 +12,8 @@ const IssuingHouseDetail = React.lazy(() =>
   import('./views/pages/issuing_house/IsuingHouseDetail'),
 );
 const GenreList = React.lazy(() => import('./views/pages/genre/GenreList'));
+const Series = React.lazy(() => import('./views/pages/series/Series'));
+const SeriesDetail = React.lazy(() => import('./views/pages/series/SeriesDetail'));
 const GenreDetail = React.lazy(() => import('./views/pages/genre/GenreDetail'));
 const BookRequest = React.lazy(() => import('./views/pages/book/BookRequest'));
 const User = React.lazy(() => import('./views/pages/user/User'));
@@ -33,6 +35,9 @@ const routes = [
     element: IssuingHouseDetail,
   },
   { path: '/genre', exact: true, name: 'Thể loại', element: GenreList },
+  { path: '/genre/:genre_id', exact: true, name: 'Thể loại', element: GenreDetail },
+  { path: '/series', exact: true, name: 'Series', element: Series },
+  { path: '/series/:series_id', exact: true, name: 'Series', element: SeriesDetail },
   { path: '/genre/:genre_id', exact: true, name: 'Thể loại', element: GenreDetail },
   { path: '/profile', exact: true, name: 'Profile', element: Profile },
   { path: '/user', exact: true, name: 'User', element: User },

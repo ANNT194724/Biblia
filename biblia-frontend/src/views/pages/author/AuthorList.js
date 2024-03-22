@@ -7,6 +7,7 @@ import { BASE_URL, DEFAULT_PAGE } from 'src/Constants';
 import AuthorImg from 'src/assets/images/author.png';
 import { useNavigate } from 'react-router-dom';
 import CreateAuthorModal from 'src/components/modal/CreateAuthorModal';
+import ResponsivePagination from 'react-responsive-pagination';
 const {
   CRow,
   CForm,
@@ -16,8 +17,6 @@ const {
   CCard,
   CCardTitle,
   CCardBody,
-  CPagination,
-  CPaginationItem,
   CContainer,
   CAvatar,
 } = require('@coreui/react');
@@ -116,33 +115,11 @@ const AuthorList = () => {
           })}
         </CRow>
       </CContainer>
-      <div className="d-flex justify-content-center">
-        <CPagination>
-          <CPaginationItem
-            aria-label="Previous"
-            onClick={() => setPage(page - 1)}
-            disabled={page === DEFAULT_PAGE}
-          >
-            <span aria-hidden="true">&laquo;</span>
-          </CPaginationItem>
-          {pageNumbers.map((pageNumber) => (
-            <CPaginationItem
-              key={pageNumber}
-              active={pageNumber === page}
-              onClick={() => setPage(pageNumber)}
-            >
-              {pageNumber}
-            </CPaginationItem>
-          ))}
-          <CPaginationItem
-            aria-label="Next"
-            onClick={() => setPage(page + 1)}
-            disabled={page === totalPages}
-          >
-            <span aria-hidden="true">&raquo;</span>
-          </CPaginationItem>
-        </CPagination>
-      </div>
+      <ResponsivePagination
+        total={totalPages}
+        current={page}
+        onPageChange={(page) => setPage(page)}
+      />
     </>
   );
 };

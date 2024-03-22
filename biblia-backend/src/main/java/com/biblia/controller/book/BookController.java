@@ -39,13 +39,13 @@ public class BookController {
                                   @RequestParam(name = "author_id", required = false) Integer authorId,
                                   @RequestParam(name = "publisher", required = false) Integer publisher,
                                   @RequestParam(name = "issuing_house", required = false) Integer issuingHouse,
-                                  @RequestParam(name = "published_year", required = false) Integer publishedYear,
+                                  @RequestParam(name = "series_id", required = false) Integer seriesId,
                                   @RequestParam(name = "sort_by", required = false) String sortBy,
                                   @RequestParam(name = "sort_direction", required = false) Integer sortDirection) {
         log.info("get books");
         long start = System.currentTimeMillis();
         ResponseModel model = bookService
-                .getBooks(page, size, keyword, authorId, publisher, issuingHouse, publishedYear, sortBy, sortDirection);
+                .getBooks(page, size, keyword, authorId, publisher, issuingHouse, seriesId, sortBy, sortDirection);
         long end = System.currentTimeMillis();
         long diff = end - start;
         log.info("Code = " + model.getResponseStatus() + ", " + model.getDescription() + ", time = " + diff);
@@ -59,6 +59,17 @@ public class BookController {
         log.info("get book add request");
         long start = System.currentTimeMillis();
         ResponseModel model = bookService.getBookRequest(page, size);
+        long end = System.currentTimeMillis();
+        long diff = end - start;
+        log.info("Code = " + model.getResponseStatus() + ", " + model.getDescription() + ", time = " + diff);
+        return new ResponseEntity<>(model.getData(), model.getResponseStatus());
+    }
+
+    @GetMapping("/view")
+    ResponseEntity<?> getBookViews(@RequestParam(name = "keyword") String keyword) {
+        log.info("get book view");
+        long start = System.currentTimeMillis();
+        ResponseModel model = bookService.getBookViews(keyword);
         long end = System.currentTimeMillis();
         long diff = end - start;
         log.info("Code = " + model.getResponseStatus() + ", " + model.getDescription() + ", time = " + diff);
@@ -122,7 +133,7 @@ public class BookController {
     ResponseEntity<?> crawlBooks(@RequestParam(name = "page") Integer page) {
         log.info("crawl data");
         long start = System.currentTimeMillis();
-        ResponseModel model = bookService.crawlData(page);
+        ResponseModel model = bookService.crawlDataKimDong(page);
         long end = System.currentTimeMillis();
         long diff = end - start;
         log.info("Code = " + model.getResponseStatus() + ", " + model.getDescription() + ", time = " + diff);

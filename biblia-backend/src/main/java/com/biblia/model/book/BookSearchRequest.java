@@ -13,6 +13,7 @@ public class BookSearchRequest {
     Integer authorId;
     Integer publisherId;
     Integer issuingHouseId;
+    Integer seriesId;
     Integer status;
     String sortBy;
     Integer sortDirection;

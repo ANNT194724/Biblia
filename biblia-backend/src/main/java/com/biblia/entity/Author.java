@@ -1,5 +1,6 @@
 package com.biblia.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.persistence.*;
@@ -51,9 +52,11 @@ public class Author {
     @Column(name = "updated_time")
     private Timestamp updatedTime;
     @Basic
+    @JsonIgnore
     @Column(name = "updated_user")
     private Integer updatedUser;
     @Basic
+    @JsonIgnore
     @Column(name = "delete_flag")
     private Integer deleteFlag;
 }

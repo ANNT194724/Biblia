@@ -2,53 +2,48 @@ import { cilSearch } from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import CreateBookModal from 'src/components/modal/CreateBookModal';
 import axios from 'axios';
-import { BASE_URL, DEFAULT_PAGE, DEFAULT_PAGE_SIZE, SORT_BY, SORT_DIRECTION } from 'src/Constants';
-import BookList from 'src/components/book/BookList';
+import { BASE_URL, DEFAULT_PAGE } from 'src/Constants';
 import ResponsivePagination from 'react-responsive-pagination';
+import SeriesList from '../../../components/series/SeriesList';
+import CreateSeriesModal from 'src/components/modal/CreateSeriesModal';
 const { CRow, CForm, CCol, CFormInput, CButton } = require('@coreui/react');
 
-const Home = () => {
-  const [keyword, setKeyword] = useState(localStorage.getItem('keyword') || '');
+const Series = () => {
+  const [keyword, setKeyword] = useState('');
   const [page, setPage] = useState(Number(localStorage.getItem('page')) || DEFAULT_PAGE);
   const [totalPages, setTotalpages] = useState(0);
   const [totalElements, setTotalElements] = useState(0);
-  const [books, setBooks] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const size = DEFAULT_PAGE_SIZE;
-  const sort_by = SORT_BY.RATING;
-  const sort_direction = SORT_DIRECTION.DESC;
+  const [series, setSeries] = useState([]);
+  const size = 12;
   const userData = useSelector((state) => state.auth.userData);
 
-  const getBooks = () => {
+  const getSeries = () => {
     const params = {
       page,
       size,
       keyword,
-      sort_by,
-      sort_direction,
     };
 
-    axios.get(`${BASE_URL}/book`, { params }).then(function (response) {
-      setBooks(response.data.data);
+    axios.get(`${BASE_URL}/series`, { params }).then(function (response) {
+      setSeries(response.data.data);
       setTotalpages(response.data.total_pages);
       setTotalElements(response.data.total_elements);
     });
   };
 
   useEffect(() => {
-    getBooks();
-    localStorage.setItem('page', page);
+    getSeries();
+    localStorage.setItem('series_page', page);
   }, [page]);
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      localStorage.setItem('keyword', keyword);
-      localStorage.setItem('page', DEFAULT_PAGE);
+      localStorage.setItem('serise_page', DEFAULT_PAGE);
       setPage(DEFAULT_PAGE);
-      getBooks();
+      getSeries();
     }
   };
 
@@ -67,7 +62,7 @@ const Home = () => {
           <CForm>
             <CFormInput
               type="text"
-              placeholder="Tìm sách qua mã ISBN hoặc tiêu đề"
+              placeholder="Tìm series"
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
               onKeyDown={handleKeyPress}
@@ -75,21 +70,14 @@ const Home = () => {
           </CForm>
         </CCol>
         <CCol>
-          {userData && userData.role_code === 'USER' && (
-            <CButton onClick={() => setShowModal(true)}>Yêu cầu thêm sách</CButton>
-          )}
           {userData && (userData.role_code === 'MODERATOR' || userData.role_code === 'ADMIN') && (
-            <CButton onClick={() => setShowModal(true)}>Thêm sách</CButton>
+            <CButton onClick={() => setShowModal(true)}>Thêm series</CButton>
           )}
         </CCol>
       </CRow>
-      <CreateBookModal
-        role={userData ? userData.role_code : ''}
-        visible={showModal}
-        onHide={() => setShowModal(false)}
-      />
+      <CreateSeriesModal visible={showModal} onHide={() => setShowModal(false)} />
       <h6 className="mb-3">{`${totalElements} kết quả`}</h6>
-      <BookList books={books}></BookList>
+      <SeriesList series={series}></SeriesList>
       <ResponsivePagination
         total={totalPages}
         current={page}
@@ -99,4 +87,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Series;
